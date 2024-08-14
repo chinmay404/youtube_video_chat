@@ -12,9 +12,9 @@ class YTResponseGenerator:
     def __init__(self, groq_api_key):
         self.llm_instance = None
         self.init_llm(groq_api_key)
-        self.chain = None  # Placeholder for the QA chain
-        self.db = None  # Placeholder for the QA chain
-        self.retriver = None  # Placeholder for the QA chain
+        self.chain = None 
+        self.db = None  
+        self.retriver = None  
         self.text_splitter = RecursiveCharacterTextSplitter(chunk_size = 500, chunk_overlap=50)
 
     def init_llm(self, groq_api_key):
@@ -29,8 +29,6 @@ class YTResponseGenerator:
 
     def load_qa_chain(self, llm, chain_type="stuff", verbose=False):
         """Loads a QA chain."""
-        # Assuming load_qa_chain is a function you have defined elsewhere
-        # This is a placeholder for the actual implementation
         self.chain = load_qa_chain(llm, chain_type=chain_type, verbose=verbose)
 
     def get_transcript(self, video_url, translation_language="en"):
@@ -55,7 +53,7 @@ class YTResponseGenerator:
         persistent_dir = "chroma_db"
         db = Chroma.from_documents(documents=docs, embedding=self.gen_embeddings(), persist_directory=persistent_dir)
         db.persist()
-        self.db = db  # Store the database for later use
+        self.db = db  
         return self.db.as_retriever()
 
     def process_query(self, user_input):
